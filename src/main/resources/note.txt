@@ -1,0 +1,2 @@
+1、同时存在 application.yml 和 application.properties，并且里面配置相同，
+application.properties 的配置会覆盖 application.yml。

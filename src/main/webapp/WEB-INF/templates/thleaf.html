@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>thymeleaf</title>
+</head>
+<body>
+<h1  th:text=${message}>Hello World</h1>
+<h1  th:text=" 'hello,'+${message}">Hello World</h1>
+<h1>[[${message}]]</h1>
+
+<h1>[[${message}]]</h1>
+<h1 th:text="${session.name}"></h1>
+<h1 th:text="${#session.getAttribute('name')}"></h1>
+
+<!--格式化时间-->
+<p th:text="${#dates.format(date, 'yyyy-MM-dd HH:mm:ss')}">neo</p>
+<!--创建当前时间 精确到天-->
+<p th:text="${#dates.createToday()}">neo</p>
+<!--创建当前时间 精确到秒-->
+<p th:text="${#dates.createNow()}">neo</p>
+
+<!--判断是否为空-->
+<p th:text="${#strings.isEmpty(userName)}">userName</p>
+<!--判断 list 是否为空-->
+<p th:text="${#strings.listIsEmpty(users)}">userName</p>
+<!--输出字符串长度-->
+<p th:text="${#strings.length(userName)}">userName</p>
+<!--拼接字符串-->
+<p th:text="${#strings.concat(userName,userName,userName)}"></p>
+<!--创建自定长度的字符串-->
+<p th:text="${#strings.randomAlphanumeric(count)}">userName</p>
+
+</body>
+
+<script th:inline="javascript">
+	//alert([[${message}]])
+</script>
+
+
+
+</html>
