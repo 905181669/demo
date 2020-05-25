@@ -22,6 +22,6 @@ public class BestRest {
 
 
         Enumeration em = request.getHeaderNames();
-        return "BEST";
+        return "测试get";
     }
 }
