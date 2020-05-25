@@ -1,8 +1,13 @@
-package com.example.rest;
+package com.example.demo.rest;
 
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * @author: luozijian
@@ -15,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestRest {
 
     @GetMapping("/get")
-    public String get(){
+    public String get(HttpServletRequest request){
 
-        return "测试";
+
+        Enumeration em = request.getHeaderNames();
+        return "TEST";
     }
 }

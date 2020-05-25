@@ -6,4 +6,10 @@ package com.example.demo;
  * @description:
  */
 public class Function {
+
+    private void none(int id, Ticket ticket, String admin){
+        System.out.println(id);
+        System.out.println(ticket);
+        System.out.println(admin);
+    }
 }

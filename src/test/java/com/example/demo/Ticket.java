@@ -6,4 +6,8 @@ package com.example.demo;
  * @description:
  */
 public class Ticket {
+
+    private int id;
+
+
 }

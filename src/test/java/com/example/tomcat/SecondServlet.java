@@ -5,7 +5,7 @@ package com.example.tomcat;
  * @date: 2020-04-21 22:06:16
  * @description:
  */
-public class FirstServlet extends GPServlet {
+public class SecondServlet extends GPServlet {
 
     @Override
     public void service(GPRequest request, GPResponse response) throws Exception {
@@ -19,6 +19,6 @@ public class FirstServlet extends GPServlet {
 
     @Override
     public void doPost(GPRequest request, GPResponse response) throws Exception {
-        response.write("this is first servlet");
+        response.write("this is second servlet");
     }
 }
