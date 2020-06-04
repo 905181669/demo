@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Enumeration;
 
 /**
@@ -14,14 +15,17 @@ import java.util.Enumeration;
  */
 
 @RestController
-@RequestMapping("/best")
+@RequestMapping("/")
 public class BestRest {
 
-    @GetMapping("/get")
+    @GetMapping("")
+    public String home(){
+        return "home";
+    }
+
+    @GetMapping("get")
     public String get(HttpServletRequest request){
 
-
-        Enumeration em = request.getHeaderNames();
-        return "测试get";
+        return new Date().toString();
     }
 }
