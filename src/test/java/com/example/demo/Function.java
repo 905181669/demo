@@ -12,4 +12,8 @@ public class Function {
         System.out.println(ticket);
         System.out.println(admin);
     }
+
+    static {
+        System.out.println("初始化Function");
+    }
 }
