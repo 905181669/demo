@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webSocketTest客户端</title>
+</head>
+
+<body>
+
+<h4>客户端输入：</h4>
+<textarea id = "message" name="message" style="width: 200px;height: 100px"></textarea>
+<br/>
+<input type="button" value="发送到服务器" onclick="sendMessage()" />
+
+
+<h4>服务器返回消息：</h4>
+<textarea id = "responseText" name="message" style="width: 1100px;height: 100px"></textarea>
+<br/>
+<input type="button" οnclick="javascript:document.getElementById('responseText').value=''" value="clear data">
+
+<h4>客户端关闭socket</h4>
+<input type="button" value="客户端关闭socket" onclick="clientCloseSocket()" />
+
+
+<h4>服务端关闭socket</h4>
+<input type="button" value="服务端关闭socket" onclick="serverCloseSocket()" />
+
+<h4></h4>
+<div>
+    <a href="https://cloud.tencent.com/developer/article/1674012" target="_blank">close返回码详情</a>
+</div>
+
+
+<script type="text/javascript">
+
+    var webSocket;
+    if(window.WebSocket){
+        webSocket = new WebSocket("ws://127.0.0.1:7077/ws");
+        //客户端收到服务器的方法，这个方法就会被回调
+        webSocket.onmessage = function (ev) {
+
+            var contents = document.getElementById("responseText");
+            contents.value = contents.value +"\n"+ ev.data;
+        }
+
+        webSocket.onopen = function (ev) {
+            var contents = document.getElementById("responseText");
+            contents.value = "与服务器端的websocket连接建立";
+
+            var data = '{"method":"init","identifier":"11VKF7M0020199"}';
+
+            webSocket.send(data);
+        }
+        webSocket.onclose = function (ev) {
+
+            var contents = document.getElementById("responseText");
+            var closeMsg = "与服务器端的websocket连接断开,断开代码值："
+                + ev.code +"; 断开原因：" + ev.reason + "; 是否正常断开：" + ev.wasClean;
+            contents.value =  contents.value +"\n"+ closeMsg;
+            alert(closeMsg);
+        }
+    }else{
+        alert("该环境不支持websocket")
+    }
+
+    function sendMessage() {
+        //alert(document.getElementById("message").value);
+        if(window.webSocket){
+            if(webSocket.readyState == WebSocket.OPEN){
+
+                var data= document.getElementById("message").value;
+                webSocket.send(data);
+            }else{
+                alert("与服务器连接尚未建立")
+            }
+        }
+    }
+
+
+    function clientCloseSocket() {
+        if(window.webSocket){
+            if(webSocket.readyState == WebSocket.OPEN){
+
+                webSocket.close();
+            }else{
+                alert("与服务器连接尚未建立")
+            }
+        }
+    }
+
+
+    function serverCloseSocket(){
+        if(window.webSocket){
+            if(webSocket.readyState == WebSocket.OPEN){
+
+                var data= "serverClose";
+                webSocket.send(data);
+            }else{
+                alert("与服务器连接尚未建立")
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

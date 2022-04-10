@@ -37,7 +37,7 @@ public class MyServer {
         serverSocketChannel.configureBlocking(false);
 
         serverSocketChannel.bind(new InetSocketAddress(port));
-        System.out.println("listener on port" + port);
+        System.out.println("listener on port: " + port);
 
         selector = Selector.open();
 
@@ -49,8 +49,9 @@ public class MyServer {
     private void listen() throws Exception{
 
         while(true){
-            int n = selector.select();
+            int n = selector.select(2000);
             if(n == 0){
+                System.out.println("select返回0...");
                 continue;
             }
             Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();

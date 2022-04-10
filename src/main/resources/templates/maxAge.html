@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>HTTP cache control Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+</head>
+<body>
+<h3>实践Cache-Control max-age=10</h3>
+<p id="time"></p>
+<a href="http://localhost:9090/http/cache-control/max-age">刷新页面</a>
+<script>
+    $("#time").text("页面访问时间：" + new Date());
+
+</script>
+
+<button id="cache">测试ajax缓存</button>
+
+<script>
+
+    $("#cache").on("click", function () {
+
+        $.ajax("http://localhost:9090/http/cache-control/max-age",{
+            type:"get",
+            data: null,
+            processData:false,//告诉jquery不要去处理请求的数据格式
+            contentType:false,//告诉jquery不要设置请求头的类型
+            success:function (data) {
+                alert(data);
+            }
+        });
+
+    })
+
+</script>
+
+
+</body>
+</html>

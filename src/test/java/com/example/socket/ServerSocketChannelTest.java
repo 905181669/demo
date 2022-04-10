@@ -201,5 +201,8 @@ public class ServerSocketChannelTest {
                      | SelectionKey.OP_CONNECT);
 
 
+        System.out.println(SelectionKey.OP_READ);
+        System.out.println(SelectionKey.OP_WRITE);
+        System.out.println(SelectionKey.OP_ACCEPT);
     }
 }

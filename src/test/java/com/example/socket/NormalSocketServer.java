@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,7 +23,7 @@ public class NormalSocketServer {
 
     public static void main(String[] args)throws IOException {
 
-        server(9000);
+        server(9090);
 
     }
 
@@ -44,9 +46,9 @@ public class NormalSocketServer {
                     InputStream inputStream = socket.getInputStream();
                     OutputStream outputStream = socket.getOutputStream();
                     int len;
-                    byte[] buffer = new byte[2];
+                    byte[] buffer = new byte[1024];
                     while ((len = inputStream.read(buffer)) != -1){
-                        System.out.println(inputStream.available());
+//                        System.out.println(inputStream.available());
 
                         StringBuilder sb = new StringBuilder();
                         sb.append(new String(buffer, 0, len, "UTF-8"));
@@ -55,11 +57,18 @@ public class NormalSocketServer {
                         if(sb.toString().startsWith("end")){
                             outputStream.write("关闭".getBytes());
                             break;
+                        }else {
+
+                            StringBuilder response = new StringBuilder();
+                            //要返回的内容(当前时间)
+                            response.append("CurrentTime: ").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+                            outputStream.write(response.toString().getBytes());
                         }
                     }
 
-                    socket.shutdownInput();
-                    socket.shutdownOutput();
+//                    socket.shutdownInput();
+//                    socket.shutdownOutput();
                     socket.close();
 
                 }catch (IOException e){

@@ -10,20 +10,19 @@ import java.util.List;
  */
 public class Book {
 
-//    int a;
-//    byte b;
-//    Integer c = new Integer(1);
-//    char[] d = new char[32];
-//    int a = 1;
-//    int b;
+    public Book() {
+        System.out.println("创建book");
+    }
 
-    String a;
-    String a1;
-    String a2;
-    String a3;
+    public static void main(String[] args) {
+        Book noteBook = new NoteBook();
+    }
 }
 
 
-class A{
-    char[] a = new char[1024];
+class NoteBook extends Book{
+
+    public NoteBook() {
+        System.out.println("创建noteBook");
+    }
 }

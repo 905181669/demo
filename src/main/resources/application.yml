@@ -1,0 +1,136 @@
+server:
+    port: 9090
+#    tomcat:
+#      max-http-header-size: 10485760 #头部大小，测试tomcat线程多时java heap OOM，默认值为8k
+
+    tomcat:
+      accept-count: 1000 #默认100
+      max-threads: 200
+      max-connections: 8192 #默认8192
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: ALWAYS
+
+spring.application.name: demo-service
+
+#--------服务注册------
+eureka.instance.prefer-ip-address: true
+eureka.instance.instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+eureka.client:
+  register-with-eureka: false
+  fetch-registry: false
+  registry-fetch-interval-seconds: 30 #每5秒到server拿新的服务列表，默认是30s
+  service-url:
+    defaultZone: http://127.0.0.1:1111/eureka
+
+
+feign.hystrix.enabled: true
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 10000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+
+
+############ hystrix全局配置#####################################
+hystrix.command.default.execution:
+  isolation:
+    strategy: THREAD
+    thread.timeoutInMilliseconds: 15000 #默认是1秒
+  #超时开关
+  timeout.enabled: true #默认true
+
+
+
+#-- 服务器开启压缩
+#server.compression:
+#    enabled: true
+#    min-response-size: 1 #1个字节
+#    mime-types:
+#      - text/html
+#      - text/xml
+#      - text/plain
+#      - text/css
+#      - text/javascript
+#      - application/javascript
+#      - application/json
+#      - application/xml
+
+
+spring:
+  # 引擎模板配置
+  thymeleaf:
+    cache: false # 关闭缓存
+    prefix: classpath:/templates/ # 指定 thymeleaf 模板路径
+    suffix: .html
+    encoding: UTF-8 # 指定字符集编码
+    enabled: true
+    mode: HTML
+  mvc:
+    static-path-pattern: /** # js ,css 等静态文件路径，配置这个会添加一个SimpleUrlHandlerMapping，
+    #代码在WebMvcConfigurationSupport.resourceHandlerMapping-->WebMvcAutoConfiguration.addResourceHandlers()
+
+    favicon:
+      enabled: false
+
+#------------------kafka---------------
+#spring.kafka:
+#  bootstrap-servers: localhost:9092
+#  consumer:
+#    #client-id:
+#    group-id: ${spring.application.name}
+#    auto-offset-reset: latest
+#    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#  producer:
+#    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+
+
+#-----------------mysql----------------
+
+
+#  　　 driver-class-name: com.mysql.jdbc.Driver
+#  　　 url: jdbc:mysql://10.4.22.154:3306/test?useUnicode=true&characterEncoding=utf8
+#  　　 username: root
+#  　　 password: root
+
+#spring.datasource:
+#  type: com.alibaba.druid.pool.DruidDataSource
+#  driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#  url: jdbc:sqlserver://192.168.100.108:1433;databaseName=Config
+#  username: sa
+#  password: Fzf8BEAta?ybFhKJgH>8
+
+
+spring.servlet:
+    multipart:
+      # 根据实际需求作调整
+      # post form-data请求也会检查这个参数，默认大小为1M，FileItemStreamImpl，设-1不限制
+      max-file-size: 20MB
+      # post form-data请求也会检查这个参数,默认最大请求大小为10M，总上传的数据大小,FileItemIteratorImpl，设-1不限制
+      max-request-size: 20MB
+
+# 对tomcat来说，post form-data请求也会检查这个参数，默认2Mb，Request,设-1不限制
+server.tomcat:
+    max-http-post-size: 20MB
+
+#spring.cloud:
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8080
+#    eager: true

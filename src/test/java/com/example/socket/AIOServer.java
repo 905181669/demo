@@ -20,7 +20,7 @@ public class AIOServer {
     private final int port;
 
     public static void main(String[] args) {
-        int port = 8000;
+        int port = 9000;
         new AIOServer(port);
     }
 
@@ -61,7 +61,7 @@ public class AIOServer {
                 }
 
                 System.out.println("服务器发送数据完毕.");
-//                socketChannel.close();
+                socketChannel.close();
 
             }
 

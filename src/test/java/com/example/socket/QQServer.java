@@ -2,6 +2,7 @@ package com.example.socket;
 
 import com.google.common.collect.Sets;
 import org.springframework.util.CollectionUtils;
+import sun.nio.ch.SelectionKeyImpl;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -19,6 +20,24 @@ import java.util.Set;
  */
 public class QQServer {
 
+    static Selector selector;
+    /**
+     * java -XX:+PrintCommandLineFlags -version
+     *
+     * java -XX:+PrintFlagsFinal -version | grep :
+     *
+     * -Xms10m -Xmx10m -XX:+UseG1GC
+     *
+     * jconsole
+     *
+     * jinfo pid可以看垃圾回收器
+     * jmap
+     * jstat
+     *
+     * @param args
+     * @throws Exception
+     */
+
     public static void main(String[] args) throws Exception{
 
         Thread thread = new Thread(()->{
@@ -31,6 +50,10 @@ public class QQServer {
 
         });
         thread.start();
+
+        Thread.sleep(3000);
+
+        selector.wakeup();
         System.out.println("主线程执行完毕...");
 
 
@@ -40,22 +63,31 @@ public class QQServer {
     public static void myServer(int port) throws Exception{
 
         ServerSocketChannel ssc = ServerSocketChannel.open();
-        ssc.socket().bind(new InetSocketAddress(port));
+
+        ssc.socket().getChannel();
+
+        ssc.bind(new InetSocketAddress(port));
+//        ssc.socket().bind(new InetSocketAddress(port));
         ssc.configureBlocking(false);
 
 
-        Selector selector = Selector.open();
+        selector = Selector.open();
         ssc.register(selector, SelectionKey.OP_ACCEPT);
 
         System.out.println("等待客户端连接...");
 
         ByteBuffer readBuff = ByteBuffer.allocate(1024);
-        ByteBuffer writeBuff = ByteBuffer.allocate(1024);
+
 
         while (true){
             //阻塞的是调用select()函数的线程
-            selector.select();
+            int selectRet = selector.select();
+            System.out.println("select返回值: " + selectRet);
+            /**
+             * select()返回后，selectedKeys不为空
+             */
             Set<SelectionKey> keys = selector.selectedKeys();
+
             Iterator<SelectionKey> it =  keys.iterator();
             while (it.hasNext()){
                 SelectionKey key = it.next();
@@ -64,6 +96,7 @@ public class QQServer {
                 if(key.isAcceptable()){
                     ServerSocketChannel server = (ServerSocketChannel) key.channel();
                     SocketChannel channel = server.accept();
+                    channel.socket();
                     channel.configureBlocking(false);
 
                     //SocketChannel把注册的key放到SelectionKeyManage集合

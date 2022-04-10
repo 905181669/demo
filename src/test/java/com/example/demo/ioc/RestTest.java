@@ -1,6 +1,6 @@
 package com.example.demo.ioc;
 
-import com.example.demo.rest.BestRest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

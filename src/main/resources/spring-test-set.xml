@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		 ">
+
+	<!-- 定义car这个bean，id为myCar -->
+	<bean id="myCar" class="com.example.spring.bean.Car" scope="singleton" init-method="start" destroy-method="destroy">
+		<!--
+            为car的属性注入值，因为speed和price都是基本数据类型，所以使用value为属性设置值；
+            注意，这里的name为speed和price，不是因为属性名就是speed和price，
+            而是set方法分别为setSpeed和setPrice，名称是通过将set删除，然后将第一个字母变小写得出；
+        -->
+		<property name="speed" value="100"/>
+		<property name="price" value="99999.9"/>
+		<property name="user" ref="user" />
+	</bean>
+
+	<!-- 定义user这个bean -->
+	<bean id="user" class="com.example.spring.bean.User" scope="singleton">
+		<property name="name" value="aaa" />
+		<property name="age" value="123" />
+		<!-- car是引用类型，所以这里使用ref为其注入值，注入的就是上面定义的myCar
+             基本数据类型或Java包装类型使用value，
+             而引用类型使用ref，引用另外一个bean的id
+        -->
+		<property name="car" ref="myCar" />
+	</bean>
+
+
+	<!--lazy-init默认是false，即不延迟加载-->
+	<bean id="apple" class="com.example.spring.bean.Apple" scope="singleton" lazy-init="default">
+		<property name="color" value="red" />
+
+	</bean>
+
+	<!-- 注册处理器 -->
+	<bean class="com.example.spring.post.MyBeanPostProcessor"></bean>
+
+	<!-- beanFactory注册处理器 -->
+	<bean class="com.example.spring.post.MyBeanFactoryPostProcessor"></bean>
+
+
+
+</beans>
