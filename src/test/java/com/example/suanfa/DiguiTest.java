@@ -14,6 +14,7 @@ public class DiguiTest {
     public static void main(String[] args) {
 //        findSingle();
 
+
         String[] str = {"flower","flow","flight"};
         System.out.println(longestCommonPrefix(str));
 
