@@ -16,6 +16,10 @@ public class AsyncConfig {
     private static final int MAX_POOL_SIZE = 10;
     private static final int CORE_POOL_SIZE = 5;
 
+    /**
+     * 练习git
+     * @return
+     */
     @Bean("asyncTaskExecutor")
     public AsyncTaskExecutor asyncTaskExecutor() {
         ThreadPoolTaskExecutor asyncTaskExecutor = new ThreadPoolTaskExecutor();
