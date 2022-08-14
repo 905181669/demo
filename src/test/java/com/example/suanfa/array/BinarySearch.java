@@ -2,6 +2,8 @@ package com.example.suanfa.array;
 
 import org.junit.Test;
 
+import java.util.*;
+
 /**
  * @author: luozijian
  * @date: 7/27/21 11:32:33
@@ -71,5 +73,63 @@ public class BinarySearch {
         int[] array = {1,2,3,4,7,9,10};
         System.out.println(search1(array, 3));
 //        System.out.println(search2(array, 0));
+
+    }
+
+    @Test
+    public void test1(){
+        int[] array = {3,5,1};
+        System.out.println(search(array, 1));
+
+    }
+
+    public int search(int[] nums, int target) {
+        //首先找到旋转处的index
+        int len = nums.length;
+        int flag = 0;
+        for(int i = 0; i < len-1; i++) {
+            if(nums[i] > nums[i+1]) {
+                flag = i;
+                break;
+            }
+        }
+
+        int middle = 0;
+        int min = 0;
+        int max = flag;
+        while(min <= max){
+            middle = min + (max-min)/2;
+            if(nums[middle] == target) {
+                return middle;
+            }else if(nums[middle] < target) {
+                min = middle+1;
+            }else if(nums[middle] > target) {
+                max = middle-1;
+            }
+        }
+
+        min = flag + 1;
+        max = nums.length-1;
+        while(min <= max){
+            middle = min + (max-min)/2;
+            if(nums[middle] == target) {
+                return middle;
+            }else if(nums[middle] < target) {
+                min = middle+1;
+            }else if(nums[middle] > target) {
+                max = middle-1;
+            }
+        }
+        return -1;
+    }
+
+    public String defangIPaddr(String address) {
+
+        Queue queue = new LinkedList<>();
+        queue.add(1);
+        int[] a = new int[queue.size()];
+
+
+        return address.replace(".", "[.]");
     }
 }

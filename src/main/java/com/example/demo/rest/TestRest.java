@@ -2,9 +2,13 @@ package com.example.demo.rest;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.demo.entity.TestLockEntity;
 import com.example.demo.rest.req.Phone;
 import com.example.demo.rest.req.SendInboundCallParam;
 import com.example.demo.rest.resp.ShangriResult;
+import com.example.demo.service.TestLockService;
+import com.example.demo.service.TestService;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.DiscoveryManager;
 import io.swagger.annotations.ApiOperation;
@@ -62,6 +66,11 @@ public class TestRest {
     @Autowired
     ApplicationContext applicationContext;
 
+    @Autowired
+    private TestService testService;
+
+
+
     public static AtomicInteger ctl = new AtomicInteger(0);
 
 
@@ -116,7 +125,9 @@ public class TestRest {
 
     @RequestMapping("/longTime")
     public String longTime() throws Exception{
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
+//        testService.test();
+
         return "我是耗时5秒的请求";
     }
 

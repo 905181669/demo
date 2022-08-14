@@ -34,6 +34,57 @@ public class ListNodeTest {
     }
 
     @Test
+    public void testDoublePointReverse(){
+        print("反转前：", head);
+        ListNode newHead = doublePointReverse1(head);
+        print("反转后：", newHead);
+    }
+
+    /**
+     * 双指针法 反转链表
+     * @param head
+     * @return
+     */
+    public ListNode doublePointReverse(ListNode head){
+
+        ListNode cur = head;
+        ListNode pre = null;
+        while(cur != null) {
+            // step1：记录当前节点的下一个节点
+            ListNode next = cur.next;
+            // step2: 设置当前节点的下一个指针指向pre
+            cur.next = pre;
+
+            // step3: 将当前节点复制给上一个节点，然后将下一个节点复制当前节点，为下一个循环做准备
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
+    public ListNode doublePointReverse1(ListNode head){
+
+        if(head == null) {
+            return head;
+        }
+
+        ListNode cur = head.next;
+        ListNode pre = head;
+        pre.next = null;
+        while(cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+
+            pre = cur;
+            cur = next;
+        }
+
+        return pre;
+    }
+
+
+
+    @Test
     public void reverseList1(){
 
 
@@ -52,7 +103,7 @@ public class ListNodeTest {
      * head代表当前层
      */
     public  ListNode reverseList1(ListNode head) {
-        //head.next == null 是为了在倒数第二个node返回
+        //head.next == null 说明当前head是最后一个
         if(head == null || head.next == null){
             return head;
         }
@@ -62,16 +113,36 @@ public class ListNodeTest {
          */
 //        System.out.println(head.val);
         ListNode newHead = reverseList1(head.next);
+        System.out.println(newHead.val);
 
         /**
          * 归时做事，利用层的概念保存记录
          * 而动态规划则是利用dp数组保存记录
+         * head.next是最后一个，逐一将最后一个的next指针指向前一个node
          */
         head.next.next = head;
         head.next = null;
 
         return newHead;
 
+    }
+
+
+    @Test
+    public void test(){
+
+        print("", reverseUseDigui(head));
+    }
+
+    private ListNode reverseUseDigui(ListNode head){
+        // 如果一开始head就为null，直接返回
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        ListNode newHead = reverseUseDigui(head.next);
+
+        return newHead;
     }
 
 
@@ -261,32 +332,6 @@ public class ListNodeTest {
     }
 
 
-    @Test
-    public void testDoublePointReverse(){
-        ListNode newHead = doublePointReverse(head);
-        print("", newHead);
-    }
-
-    /**
-     * 双指针法
-     * @param head
-     * @return
-     */
-    public ListNode doublePointReverse(ListNode head){
-
-        ListNode temp;
-        ListNode pre = null;
-        ListNode cur = head;
-        while(cur != null){
-            temp = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = temp;
-
-        }
-
-        return pre;
-    }
 
 
     @Test

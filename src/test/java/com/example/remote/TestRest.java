@@ -2,6 +2,7 @@ package com.example.remote;
 
 import com.example.demo.DemoApplication;
 import com.example.demo.remote.EurekaRemote;
+import com.example.demo.service.TestLockService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

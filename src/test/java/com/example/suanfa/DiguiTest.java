@@ -157,17 +157,17 @@ public class DiguiTest {
 
     @Test
     public void test1(){
-        digui(8);
+        System.out.println("最终返回结果：" + digui(8));
     }
 
-    private void digui(int n){
+    private int digui(int n){
         if(n == 0){
-            return;
+            return 0;
         }
         System.out.println(n);
-        digui(n-1);
+        int result = digui(n-1);
         System.out.println(n);
-
+        return result;
     }
 
 

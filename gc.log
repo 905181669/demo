@@ -1,0 +1,23 @@
+Java HotSpot(TM) 64-Bit Server VM (25.211-b12) for bsd-amd64 JRE (1.8.0_211-b12), built on Apr  1 2019 20:53:18 by "java_re" with gcc 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)
+Memory: 4k page, physical 16777216k(3055220k free)
+
+/proc/meminfo:
+
+CommandLine flags: -XX:InitialHeapSize=20971520 -XX:MaxHeapSize=20971520 -XX:MaxNewSize=10485760 -XX:MaxTenuringThreshold=15 -XX:NewSize=10485760 -XX:OldPLABSize=16 -XX:PretenureSizeThreshold=3145728 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:SurvivorRatio=8 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -XX:+UseParNewGC 
+0.356: [GC (Allocation Failure) 0.356: [ParNew: 8192K->1024K(9216K), 0.0024021 secs] 8192K->1379K(19456K), 0.0025181 secs] [Times: user=0.01 sys=0.00, real=0.00 secs] 
+0.509: [GC (Allocation Failure) 0.509: [ParNew: 9216K->1023K(9216K), 0.0036361 secs] 9571K->2313K(19456K), 0.0037032 secs] [Times: user=0.01 sys=0.00, real=0.00 secs] 
+0.537: [GC (Allocation Failure) 0.537: [ParNew (promotion failed): 9118K->8730K(9216K), 0.0051613 secs]0.543: [CMS: 9481K->7475K(10240K), 0.0054211 secs] 14504K->7475K(19456K), [Metaspace: 4886K->4886K(1056768K)], 0.0107149 secs] [Times: user=0.02 sys=0.01, real=0.01 secs] 
+0.548: [GC (CMS Initial Mark) [1 CMS-initial-mark: 7475K(10240K)] 9523K(19456K), 0.0001298 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+0.549: [CMS-concurrent-mark-start]
+0.550: [CMS-concurrent-mark: 0.002/0.002 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+0.550: [CMS-concurrent-preclean-start]
+0.550: [CMS-concurrent-preclean: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+0.550: [CMS-concurrent-abortable-preclean-start]
+Heap
+ par new generation   total 9216K, used 2291K [0x00000007bec00000, 0x00000007bf600000, 0x00000007bf600000)
+  eden space 8192K,  27% used [0x00000007bec00000, 0x00000007bee3cf68, 0x00000007bf400000)
+  from space 1024K,   0% used [0x00000007bf500000, 0x00000007bf500000, 0x00000007bf600000)
+  to   space 1024K,   0% used [0x00000007bf400000, 0x00000007bf400000, 0x00000007bf500000)
+ concurrent mark-sweep generation total 10240K, used 7475K [0x00000007bf600000, 0x00000007c0000000, 0x00000007c0000000)
+ Metaspace       used 4897K, capacity 5284K, committed 5504K, reserved 1056768K
+  class space    used 558K, capacity 595K, committed 640K, reserved 1048576K

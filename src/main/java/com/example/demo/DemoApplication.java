@@ -3,6 +3,7 @@ package com.example.demo;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
@@ -14,6 +15,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PreDestroy;
@@ -24,10 +26,12 @@ import javax.annotation.PreDestroy;
  */
 
 //@EnableHystrix
+@EnableAsync
 @EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
 @ServletComponentScan
+@MapperScan({"com.example.demo.mapper"})
 public class DemoApplication {
 
 	public static void main(String[] args) {

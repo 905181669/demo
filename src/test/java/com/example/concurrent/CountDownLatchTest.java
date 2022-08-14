@@ -17,14 +17,14 @@ public class CountDownLatchTest {
 
     public static void main(String[] args) throws Exception{
 
-        CountDownLatch latch = new CountDownLatch(2);
+        CountDownLatch latch = new CountDownLatch(1);
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         executorService.execute(()->{
 
             try{
-                Thread.sleep(2000);
+//                Thread.sleep(2000);
                 latch.countDown();
                 log.info("完成countDown");
             }catch (Exception e){
@@ -35,7 +35,7 @@ public class CountDownLatchTest {
 
         executorService.execute(()->{
             try{
-                Thread.sleep(5000);
+//                Thread.sleep(5000);
                 latch.countDown();
                 log.info("完成countDown");
             }catch (Exception e){
