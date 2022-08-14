@@ -18,6 +18,7 @@ public class AsyncConfig {
 
     /**
      * 练习git
+     * 练习git 2
      * @return
      */
     @Bean("asyncTaskExecutor")
